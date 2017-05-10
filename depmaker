@@ -38,10 +38,14 @@ do
 	printf "\n"
 	sleep 1
 	echo "Your information:"
-	echo -e "repository": "$reponame",
-	echo -e "target_path": "$pathname",
-	echo -e "branch": "$branchname",
-	echo -e "remote": "$remotename"
+	echo -e "["
+	echo -e "	{"
+	echo -e 		"\"repository\": \"$reponame\","
+	echo -e 		"\"target_path\": \"$pathname\","
+	echo -e 		"\"branch\": \"$branchname\","
+	echo -e 		"\"remote\": \"$remotename\""
+	echo -e "	},"
+	echo -e "]"
 	echo ""
 	echo ""
 	echo ""

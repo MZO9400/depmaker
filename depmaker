@@ -58,10 +58,10 @@ do
 		else
 			echo "Writing dependencies..."
 			echo -e "  {" >> $depname
-			echo -e "		"repository": "$reponame"," >> $depname
-			echo -e "		'"target_path": "$pathname"," >> $depname
-			echo -e "		"branch": "$branchname"," >> $depname
-			echo -e "		"remote": "$remotename"" >> $depname
+			echo -e "		\"repository\": \"$reponame\"," >> $depname
+			echo -e "		\"target_path\": \"$pathname\"," >> $depname
+			echo -e "		\"branch\": \"$branchname\"," >> $depname
+			echo -e "		\"remote\": \"$remotename\"" >> $depname
 			echo -e "  }," >> $depname
 			unset reponame
 			unset branchname

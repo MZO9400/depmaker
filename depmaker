@@ -1,0 +1,73 @@
+#!/bin/bash
+echo -e "\033c"
+
+echo "Welcome to dependency writer, you can easily get your desired"
+echo "dependencies file from this without having to manually type in"
+echo "all the dependencies"
+
+sleep 2
+
+clear
+
+echo "Please type in the name of your required dependencies file: "
+read depname
+printf "\n"
+echo "You chose $depname"
+
+touch $depname
+echo "[" >> $depname
+sleep 1
+while :
+do
+	clear
+	echo "When you've added all the dependencies, please press enter"
+	echo "When it asks you about input information"
+	echo ""
+	echo ""
+	echo "Enter the link of your repository: "
+	read reponame
+	printf "\n"
+	echo "Enter the local target path: "
+	read pathname
+	printf "\n"
+	echo "Enter branch name: "
+	read branchname
+	printf "\n"
+	echo "Enter remote name: "
+	read remotename
+	printf "\n"
+	sleep 1
+	echo "Your information:"
+	echo -e "repository": "$reponame",
+	echo -e "target_path": "$pathname",
+	echo -e "branch": "$branchname",
+	echo -e "remote": "$remotename"
+	echo ""
+	echo ""
+	echo ""
+	sleep 2
+	clear
+		if [ x$reponame = x ] && [ x$pathname = x ]
+		then
+			echo "Target path and repository not provided"
+			echo "You sure you want to continue?"
+			sed -i '$ d' $depname
+			echo -e "  }" >> $depname
+			echo -e "]" >> $depname
+			exit 1
+		else
+			echo "Writing dependencies..."
+			echo -e "  {" >> $depname
+			echo -e "		"repository": "$reponame"," >> $depname
+			echo -e "		'"target_path": "$pathname"," >> $depname
+			echo -e "		"branch": "$branchname"," >> $depname
+			echo -e "		"remote": "$remotename"" >> $depname
+			echo -e "  }," >> $depname
+			unset reponame
+			unset branchname
+			unset pathname
+			unset remotename
+		fi
+done
+
+

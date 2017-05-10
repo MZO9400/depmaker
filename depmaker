@@ -1,76 +1,93 @@
 #!/bin/bash
 echo -e "\033c"
 
-echo "Welcome to dependency writer, you can easily get your desired"
-echo "dependencies file from this without having to manually type in"
-echo "all the dependencies"
+NONE='\033[0m'
+RED='\033[0;31m'
+LRED='\033[1;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+LBLUE='\033[1;34m'
+BLUE='\033[0;34m'
+
+echo -e ${YELLOW}"Welcome to dependency writer, you can easily get your desired"${NONE}
+echo -e ${YELLOW}"dependencies file from this without having to manually type in"${NONE}
+echo -e ${YELLOW}"all the dependencies"${NONE}
 
 sleep 2
 
 clear
 
-echo "Please type in the name of your required dependencies file: "
+echo -e ${BLUE}"Please type in the name of your required dependencies file: "${NONE}
+echo ""
+echo ""
 read depname
 printf "\n"
-echo "You chose $depname"
+
+echo -e ${YELLOW}"Filename:"${LRED}" $depname"${NONE}
 
 touch $depname
 echo "[" >> $depname
-sleep 1
+sleep 1.5
 while :
 do
 	clear
-	echo "When you've added all the dependencies, please press enter"
-	echo "When it asks you about input information"
+	echo -e ${YELLOW}"When you've added all the dependencies, please press enter"${NONE}
+	echo -e ${YELLOW}"When it asks you about input information"${NONE}
 	echo ""
 	echo ""
-	echo "Enter the link of your repository: "
+	echo -e ${LBLUE}"Enter the link of your repository: "${NONE}
 	read reponame
 	printf "\n"
-	echo "Enter the local target path: "
+	echo -e ${LBLUE}"Enter the local target path: "${NONE}
 	read pathname
 	printf "\n"
-	echo "Enter branch name: "
+	echo -e ${LBLUE}"Enter branch name: "${NONE}
 	read branchname
 	printf "\n"
-	echo "Enter remote name: "
+	echo -e ${LBLUE}"Enter remote name: "${NONE}
 	read remotename
 	printf "\n"
+	printf "\n"
+	printf "\n"
 	sleep 1
-	echo "Your information:"
-	echo -e "["
-	echo -e "	{"
-	echo -e 		"\"repository\": \"$reponame\","
-	echo -e 		"\"target_path\": \"$pathname\","
-	echo -e 		"\"branch\": \"$branchname\","
-	echo -e 		"\"remote\": \"$remotename\""
-	echo -e "	},"
-	echo -e "]"
-	echo ""
-	echo ""
-	echo ""
-	sleep 2
 	clear
 		if [ x$reponame = x ] && [ x$pathname = x ]
 		then
-			echo "Target path and repository not provided"
-			echo "You sure you want to continue?"
+			echo -e ${RED}"Target path and repository not provided"${NONE}
+			echo -e ${RED}"You sure you want to continue?"${NONE}
 			sed -i '$ d' $depname
 			echo -e "  }" >> $depname
 			echo -e "]" >> $depname
 			exit 1
 		else
-			echo "Writing dependencies..."
+		sleep 1.5
+			echo -e ${LRED}"Your information:"${NONE}
+			echo -e ${GREEN}"["${NONE}
+			echo -e ${GREEN}"       {"${NONE}
+			echo -e ${GREEN}"               \"repository\": \"$reponame\","${NONE}
+			echo -e ${GREEN}"               \"target_path\": \"$pathname\","${NONE}
+			echo -e ${GREEN}"               \"branch\": \"$branchname\","${NONE}
+			echo -e ${GREEN}"               \"remote\": \"$remotename\""${NONE}
+			echo -e ${GREEN}"       },"${NONE}
+			echo -e ${GREEN}"]"${NONE}
+			echo ""
+			echo ""
+			echo ""
+
+			echo -e ${LRED}"Writing dependencies..."${NONE}
+			echo ""
 			echo -e "  {" >> $depname
 			echo -e "		\"repository\": \"$reponame\"," >> $depname
 			echo -e "		\"target_path\": \"$pathname\"," >> $depname
 			echo -e "		\"branch\": \"$branchname\"," >> $depname
 			echo -e "		\"remote\": \"$remotename\"" >> $depname
 			echo -e "  }," >> $depname
+			echo -e ${GREEN}"Your dependencies have been added into $depname"${NONE}
 			unset reponame
 			unset branchname
 			unset pathname
 			unset remotename
+			sleep 2
 		fi
 done
 
